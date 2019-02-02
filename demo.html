@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>carousel-demo</title>
+    <script type="text/javascript" src="./carousel.js"></script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        #wrap {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around
+        }
+    </style>
+</head>
+
+<body>
+    <div id="carousel"></div>
+    <div id="wrap">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <script type="text/javascript">
+        const targetDom = document.getElementById('carousel')
+        let WIDTH = document.documentElement.clientWidth + 'px'
+        let HEIGHT = 0.309 * document.documentElement.clientWidth + 'px'
+
+        const wrapDiv = document.getElementById("wrap")
+        const targetDoms = wrapDiv.querySelectorAll('div')
+        const images = ['./images/1.jpg', './images/2.jpg', './images/3.jpg','./images/4.jpg','./images/5.jpg','./images/6.jpg',]
+
+        autoplayArr = [
+            { effect: 'slideX', time: 2000 },
+            { effect: 'slideY', time: 2000 },
+            { effect: 'scrollX', time: 2000 },
+            { effect: 'scrollY', time: 2000 },
+            { effect: 'fade', time: 2000 }
+        ]
+        controls = [
+            { indicationPoint: 'circle' },
+            { indicationPoint: 'square' },
+            { indicationPoint: 'rectangle' },
+            { indicationPoint: 'circle' },
+            { indicationPoint: 'square' }
+        ]
+        onload = function () {
+            new Carousel({
+                targetDom: targetDom,
+                style: {
+                    width: WIDTH, //轮播区域宽度
+                    height: HEIGHT, //轮播区域高端
+                },
+                images: images, //轮播图片src组
+                autoplay: {
+                    effect: 'fade', // 自动轮播效果设置 slideX slideY scrollX scrollY fade 等
+                    time: 4000 //轮播跳转时间
+                },
+                control: {
+                    indicationPoint: 'rectangle', // 指示点 分类选择 circle/square/rectangle（长方形）
+                    arrow: '' // 左右上下控制箭头分类
+                }
+            })
+
+            for (let i = 0; i < autoplayArr.length; i++) {
+                new Carousel({
+                    targetDom: targetDoms[i],
+                    style: {
+                        width: '600px',
+                        height: '300px',
+                        margin: '10px'
+                    },
+                    images: images,
+                    autoplay: autoplayArr[i],
+                    control: controls[i]
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>
